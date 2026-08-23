@@ -5,9 +5,11 @@ Static wedding site (Joevan & Christine, 21 Nov 2026, Bacolod). Vanilla HTML/CSS
 GitHub account `markashlee-de` — never the client account `markcallcorzo`). Every push to `main`
 redeploys in ~1 min. Photos/audio arrive by pushing files (couple can use github.com's upload UI —
 steps in README). Design rationale: `docs/design-spec.md`. Owner's notes: `README.md`.
-Backend state: `RSVP_ENDPOINT_V2` in `js/config.js` is '' until the couple deploys
-`backend/Code.gs` per `backend/DEPLOY.md`; until then RSVPs flow via the legacy endpoint with no
-receipt emails. Claude artifacts are retired for this project — the Pages URL is the preview.
+Backend: **v2 LIVE since 2026-08-24** — `RSVP_ENDPOINT_V2` in `js/config.js` points at the deployed
+`backend/Code.gs`; replies land in the `RSVPs v2` tab and accepting guests get a receipt email.
+Verified from the live origin: readable `{ok:true}`, no preflight, `text/plain` POST.
+Editing `backend/Code.gs` needs a redeploy (*Manage deployments → New version*) or nothing changes.
+Claude artifacts are retired for this project — the Pages URL is the preview.
 
 ## Invariants — do not reintroduce these bugs
 
