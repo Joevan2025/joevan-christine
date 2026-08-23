@@ -1,0 +1,66 @@
+/* ============================================================
+   tokens.css — the design system in one place.
+   Paper, one drawing ink, one action colour, the couple's pastels.
+   Pastels are washes and fills only; they never carry text.
+   ============================================================ */
+:root {
+  /* paper & ink */
+  --paper: #FBF8F2;
+  --vellum: #F3EEE5;
+  --ink: #2A2636;
+  --ink-soft: #5B5567;
+  --pencil: #8C8597;
+  --hair: rgba(140, 133, 151, 0.45);
+
+  /* the two working colours */
+  --wisteria-ink: #6E4BA0;       /* the ONLY action colour */
+  --wisteria-ink-deep: #58398A;
+  --stem: #6F8F78;               /* the ONE drawing ink */
+  --moss: #4C6B5A;               /* eyebrows, times (7.3:1 on paper) */
+  --error: #8A3B4A;
+
+  /* the couple's palette (unchanged) */
+  --purple: #9B72C8;
+  --purple-mid: #C5A8E0;
+  --lavender: #E8D5F5;
+  --blue: #A8C5E8;
+  --blue-light: #D8E8F8;
+  --blue-deep: #6A9DC8;
+  --sage: #A8C5A8;
+  --sage-light: #D5E8D5;
+  --sage-deep: #7A9E8A;
+
+  /* type */
+  --font-display: 'Cormorant Garamond', 'Cormorant Fallback', Georgia, 'Times New Roman', serif;
+  --font-ui: 'Jost', 'Jost Fallback', 'Helvetica Neue', Arial, sans-serif;
+
+  /* rhythm */
+  --section-pad: clamp(4rem, 10vw, 8rem);
+  --container: 68rem;
+  --container-pad: clamp(0.75rem, 2.5vw, 2rem);
+  --prose: 40rem;
+  --gutter: clamp(1.25rem, 5vw, 4.5rem);   /* the spine lives here */
+  --stroke: 1.25px;
+
+  /* motion */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --draw-dur: 1.4s;
+  --focus: 2px solid var(--wisteria-ink);
+}
+
+@media (max-width: 420px) {
+  :root { --gutter: 20px; --stroke: 1.5px; --container-pad: 0.75rem; }
+}
+
+/* Fallback faces sized to the web fonts so the swap does not jump. */
+@font-face {
+  font-family: 'Cormorant Fallback';
+  src: local('Georgia'), local('Times New Roman');
+  size-adjust: 88%;
+  ascent-override: 92%;
+}
+@font-face {
+  font-family: 'Jost Fallback';
+  src: local('Helvetica Neue'), local('Helvetica'), local('Arial');
+  size-adjust: 96%;
+}
