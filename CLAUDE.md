@@ -1,7 +1,13 @@
 # rsvp_joe_tin — project notes for future sessions
 
-Static wedding site (Joevan & Christine, 21 Nov 2026, Bacolod). Vanilla HTML/CSS/JS, no build step,
-hosted on GitHub Pages. Design rationale: `docs/design-spec.md`. Owner's notes: `README.md`.
+Static wedding site (Joevan & Christine, 21 Nov 2026, Bacolod). Vanilla HTML/CSS/JS, no build step.
+**LIVE at https://markashlee-de.github.io/joevan-christine/** (repo `markashlee-de/joevan-christine`,
+GitHub account `markashlee-de` — never the client account `markcallcorzo`). Every push to `main`
+redeploys in ~1 min. Photos/audio arrive by pushing files (couple can use github.com's upload UI —
+steps in README). Design rationale: `docs/design-spec.md`. Owner's notes: `README.md`.
+Backend state: `RSVP_ENDPOINT_V2` in `js/config.js` is '' until the couple deploys
+`backend/Code.gs` per `backend/DEPLOY.md`; until then RSVPs flow via the legacy endpoint with no
+receipt emails. Claude artifacts are retired for this project — the Pages URL is the preview.
 
 ## Invariants — do not reintroduce these bugs
 
