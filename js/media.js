@@ -73,7 +73,7 @@ var $ = function (id) { return document.getElementById(id); };
 
 /* ---------- 2. Film ---------- */
 (function film() {
-  var wrap = $('film'), play = $('film-play'), frame = $('film-frame');
+  var wrap = $('film'), play = $('film-play'), frame = $('film-frame'), sound = $('film-sound');
   if (!wrap || !play || !frame) return;
   // Accept a bare 11-char video ID or any pasted YouTube link form.
   // (A full URL in the ID slot is exactly the bug that broke the old page.)
@@ -94,21 +94,39 @@ var $ = function (id) { return document.getElementById(id); };
     } catch (e) {}
     return v; // let YouTube report an unrecognizable value
   }
-  play.addEventListener('click', function () {
-    if (!W.YOUTUBE_ID) return;
+  // Browsers refuse to autoplay video WITH sound until the guest has
+  // interacted with the page, so the film starts silently by itself and one
+  // tap re-loads it unmuted — that tap is the gesture the sound needs.
+  function start(muted) {
+    if (!W.YOUTUBE_ID) return null;
     var ifr = document.createElement('iframe');
     ifr.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(ytId(W.YOUTUBE_ID)) +
-      '?autoplay=1&rel=0&modestbranding=1';
+      '?autoplay=1&rel=0&modestbranding=1&playsinline=1&mute=' + (muted ? '1' : '0');
     ifr.title = 'Save the date film';
     ifr.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
     ifr.setAttribute('allowfullscreen', '');
-    ifr.setAttribute('loading', 'lazy');
     frame.textContent = '';
     frame.appendChild(ifr);
     frame.hidden = false;
     wrap.dataset.playing = '1';
-    ifr.focus();
-  }, { once: true });
+    wrap.dataset.muted = muted ? '1' : '';
+    return ifr;
+  }
+
+  function playWithSound() { var f = start(false); if (f) f.focus(); }
+  play.addEventListener('click', playWithSound);
+  if (sound) sound.addEventListener('click', playWithSound);
+
+  // Starts on its own once the film reaches the screen. Guests who asked for
+  // reduced motion, or who are on Save-Data, keep the tap-to-play poster.
+  var reduce = (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) ||
+    document.documentElement.getAttribute('data-lite') === '1';
+  if (!reduce && typeof IntersectionObserver === 'function') {
+    var io = new IntersectionObserver(function (entries) {
+      if (entries[entries.length - 1].isIntersecting) { io.disconnect(); start(true); }
+    }, { threshold: 0.35 });
+    io.observe(wrap);
+  }
 })();
 
 /* ---------- 3. Music ---------- */
