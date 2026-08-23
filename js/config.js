@@ -24,7 +24,7 @@ window.WEDDING = {
   YOUTUBE_ID: 'JW0poKrqtCA',
 
   HASHTAG: '#DisTINedtobewithJOE',
-  SITE_URL: '', // set to the GitHub Pages URL once deployed, e.g. https://<user>.github.io/rsvp_joe_tin/
+  SITE_URL: 'https://markashlee-de.github.io/joevan-christine', // the live site
 
   COUPLE: {
     groom: 'Joevan',

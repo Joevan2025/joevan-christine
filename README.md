@@ -1,6 +1,8 @@
 # Joevan & Christine — wedding website
 
-A single-page invitation and RSVP site. No build step: open `index.html` or host the folder as-is (GitHub Pages).
+A single-page invitation and RSVP site. **Live at <https://markashlee-de.github.io/joevan-christine/>**
+(repo: `markashlee-de/joevan-christine`). No build step — every push to `main` redeploys the site
+within a minute or two.
 
 ## For Joevan & Christine
 
@@ -12,15 +14,17 @@ Things to add or confirm before sharing the link:
 4. **Parents of the groom** — the Details section says *Mr. Jose Tagolimot & Mrs. Evalyn Ponce Tagolimot*; the Entourage section says *Mr. Erik Rikkerink & Mrs. Grace Rikkerink*. One is a leftover. Search `index.html` for `TODO (couple)` and fix both places.
 5. **After-party spelling** — the page says *Rombuhan Restobar*; Google Maps lists it as *ROMBOHAN Restobar*. Confirm.
 6. **Drive times** — shown as "about 25 min / 15 min (approximate)". Adjust in `js/config.js` (`DRIVE_MINUTES`) or set a value to `null` to hide it.
-7. **Link preview** — once the site is live, replace `SITE_URL` in the `og:image` tag near the top of `index.html` with the real address (for example `https://yourname.github.io/rsvp_joe_tin`), and set `SITE_URL` in `js/config.js`.
+7. **Link preview** — already wired to the live URL; it lights up as soon as `images/og.jpg` exists.
 
 Everything else (dates, times, venues, contacts, hashtag, RSVP deadline) lives in `js/config.js` and at the top of each section in `index.html`.
 
-## Publishing on GitHub Pages
+## Adding photos or songs without any tools (github.com upload)
 
-1. Create a repository and push this folder (keep `index.html` at the root).
-2. Repository → Settings → Pages → Source: *Deploy from a branch*, branch `main`, folder `/ (root)`.
-3. The site appears at `https://<username>.github.io/<repository>/` within a minute or two.
+1. Open <https://github.com/markashlee-de/joevan-christine>, click the `images` folder
+   (or `audio` for songs).
+2. **Add file → Upload files**, drag the pictures in (named exactly as `images/README.md` lists,
+   e.g. `prenup-01.jpg`, `og.jpg`), then **Commit changes**.
+3. Wait a minute or two and refresh the site — the drawings are replaced by your photos.
 
 ## How RSVPs are stored (and receipts sent)
 
