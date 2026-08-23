@@ -17,7 +17,7 @@ window.WEDDING = {
   // Paste the new /exec URL here to switch the form to the v2 transport:
   // readable success/failure in the browser + receipt emails to accepting
   // guests. While this is '', the site keeps the old behaviour above.
-  RSVP_ENDPOINT_V2: '',
+  RSVP_ENDPOINT_V2: 'https://script.google.com/macros/s/AKfycbxtyvdUH0iH7mEBBEkm14acLWpwqNtuZ8diMX-90aCSdQDTtMPtxOvU1SFSJPCva0in/exec',
 
   // The couple's Save-the-Date film (confirmed). A bare video ID or any
   // pasted YouTube link works here (watch?v=, youtu.be/, shorts/, embed/).
