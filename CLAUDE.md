@@ -50,6 +50,25 @@ Claude artifacts are retired for this project — the Pages URL is the preview.
 - **Groom's parents conflict is unresolved by design** (Tagolimot in Details vs Rikkerink in
   Entourage). Leave both; the `TODO (couple)` comments and README flag it. Don't "fix" one silently.
 
+## Sound: the cover, the background music, and who may pause whom
+
+- **The cover (`#cover`) is the autoplay gesture.** Browsers only allow sound after a trusted
+  tap; the "Open the invitation" button is that tap and the music player is created inside its
+  click. Never auto-dismiss the cover, never create the player before it, never start it muted
+  "to be safe" (the original tap-for-sound pill was retired for exactly this reason).
+- **The hidden player (`#bgm`) must stay ≥200×200 and never `display:none`.** YouTube refuses
+  smaller players and stalls hidden ones; it is 300×200 at `opacity:0; pointer-events:none`.
+  This is outside YouTube's letter-of-the-terms (players "should be visible") — accepted by the
+  couple for a personal invitation; don't shrink it further.
+- **All audio coordination goes through `window.BGM.holdFor(src)` / `releaseFor(src)`** (film =
+  `'film'`, ceremony songs = `'tracks'`). Never call pause/play on the music directly from
+  another module. `apply()` is debounced 150 ms on purpose: pause-then-play sent to YouTube in
+  the same tick makes it drop one — the race is real, it showed up in tests.
+- **The YouTube IFrame API loads only on the first tap** (`BGM.loadApi`). Nothing from
+  youtube.* may be requested before the cover is opened — keeps first paint and Lighthouse intact.
+- The film section is tap-to-play only; its `YT.Player` lives at `#film.ytPlayer`. Config:
+  `MUSIC_VIDEO` ('' = use `YOUTUBE_ID`), parsed by `window.ytId` (now in js/bgm.js).
+
 ## How the botanicals work
 
 - `svg/sprite.svg` is the source; it is pasted inline between `<!-- SPRITE:START -->` / `END` in

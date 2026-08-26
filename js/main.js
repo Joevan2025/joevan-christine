@@ -108,6 +108,12 @@ if (reduce) {
 /* 7. Reveals */
 var grow = $$('.section-head, .hero-body, .programme-item'), ro = null;
 var grown = (el) => { el.classList.add('is-grown'); if (ro) ro.unobserve(el); };
+// Behind the cover the hero would animate unseen; let it enter when the cover lifts.
+var heroBody = $('.hero-body');
+if (heroBody && document.documentElement.dataset.cover === 'open' && !reduce) {
+  grow = grow.filter((el) => el !== heroBody);
+  on(window, 'cover:closed', () => { setTimeout(() => grown(heroBody), 120); });
+}
 if (reduce || !IO) grow.forEach(grown);
 else {
   ro = new IO((es) => { es.forEach((e) => { if (e.isIntersecting) grown(e.target); }); }, { threshold: 0.35 });

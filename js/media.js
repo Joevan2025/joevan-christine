@@ -71,86 +71,53 @@ var $ = function (id) { return document.getElementById(id); };
   });
 })();
 
-/* ---------- 2. Film ---------- */
+/* ---------- 2. Film (tap to play; pauses the background music while it runs) ---------- */
 (function film() {
-  var wrap = $('film'), play = $('film-play'), frame = $('film-frame'), sound = $('film-sound');
+  var wrap = $('film'), play = $('film-play'), frame = $('film-frame');
   if (!wrap || !play || !frame) return;
-  // Accept a bare 11-char video ID or any pasted YouTube link form.
-  // (A full URL in the ID slot is exactly the bug that broke the old page.)
-  function ytId(v) {
-    v = String(v || '').trim();
-    if (/^[A-Za-z0-9_-]{11}$/.test(v)) return v;
-    try {
-      var u = new URL(v), id = '';
-      if (/(^|\.)youtu\.be$/.test(u.hostname)) id = u.pathname.split('/')[1] || '';
-      else if (/youtube\./.test(u.hostname)) {
-        id = u.searchParams.get('v') || '';
-        if (!id) {
-          var seg = u.pathname.match(/\/(shorts|embed|live)\/([A-Za-z0-9_-]{11})/);
-          if (seg) id = seg[2];
-        }
-      }
-      if (/^[A-Za-z0-9_-]{11}$/.test(id)) return id;
-    } catch (e) {}
-    return v; // let YouTube report an unrecognizable value
-  }
-  // Browsers refuse to autoplay video WITH sound until the guest has
-  // interacted with the page, so the film starts silently by itself and one
-  // tap re-loads it unmuted — that tap is the gesture the sound needs.
-  function start(muted) {
-    if (!W.YOUTUBE_ID) return null;
-    var ifr = document.createElement('iframe');
-    ifr.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(ytId(W.YOUTUBE_ID)) +
-      '?autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&mute=' + (muted ? '1' : '0');
-    ifr.title = 'Save the date film';
-    ifr.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
-    ifr.setAttribute('allowfullscreen', '');
+  var ytId = window.ytId || function (v) { return String(v || ''); };
+
+  play.addEventListener('click', function () {
+    var id = ytId(W.YOUTUBE_ID);
+    if (!id) return;
+    var BGM = window.BGM;
+    var host = document.createElement('div');
     frame.textContent = '';
-    frame.appendChild(ifr);
+    frame.appendChild(host);
     frame.hidden = false;
     wrap.dataset.playing = '1';
-    wrap.dataset.muted = muted ? '1' : '';
-    return ifr;
-  }
 
-  function playWithSound() { var f = start(false); if (f) f.focus(); }
-  play.addEventListener('click', playWithSound);
-  if (sound) sound.addEventListener('click', playWithSound);
-
-  // Browsers allow sound-on autoplay only after the visitor has interacted with
-  // the page. The film sits far down the page, so by the time a guest reaches it
-  // they have nearly always tapped something — and then it starts WITH sound.
-  var activated = false;
-  var GESTURES = ['pointerdown', 'touchend', 'keydown', 'click'];
-  function onGesture(e) {
-    // Only a real gesture grants autoplay-with-sound; a scripted click does not.
-    if (activated || (e && e.isTrusted === false)) return;
-    activated = true;
-    GESTURES.forEach(function (ev) { document.removeEventListener(ev, onGesture, true); });
-    // Already playing silently? Turn the sound on in place — no reload, no restart.
-    if (wrap.dataset.muted === '1') {
-      var f = frame.querySelector('iframe');
-      if (f && f.contentWindow) {
-        try {
-          f.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'unMute', args: [] }), '*');
-          f.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'setVolume', args: [100] }), '*');
-          wrap.dataset.muted = '';   // hides the pill; the player's own volume control remains
-        } catch (e) {}
-      }
+    function plain() {
+      // No IFrame API (bgm.js missing or blocked): a plain embed still plays.
+      var ifr = document.createElement('iframe');
+      ifr.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) +
+        '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      ifr.title = 'Save the date film';
+      ifr.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
+      ifr.setAttribute('allowfullscreen', '');
+      frame.textContent = '';
+      frame.appendChild(ifr);
+      if (BGM) BGM.holdFor('film');
     }
-  }
-  GESTURES.forEach(function (ev) { document.addEventListener(ev, onGesture, true); });
+    if (!BGM || !BGM.loadApi) { plain(); return; }
 
-  // Starts on its own once the film reaches the screen. Guests who asked for
-  // reduced motion, or who are on Save-Data, keep the tap-to-play poster.
-  var reduce = (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) ||
-    document.documentElement.getAttribute('data-lite') === '1';
-  if (!reduce && typeof IntersectionObserver === 'function') {
-    var io = new IntersectionObserver(function (entries) {
-      if (entries[entries.length - 1].isIntersecting) { io.disconnect(); start(!activated); }
-    }, { threshold: 0.35 });
-    io.observe(wrap);
-  }
+    BGM.loadApi(function () {
+      wrap.ytPlayer = new YT.Player(host, {
+        videoId: id,
+        host: 'https://www.youtube-nocookie.com',
+        playerVars: { autoplay: 1, playsinline: 1, rel: 0, modestbranding: 1, origin: location.origin },
+        events: {
+          onReady: function (e) {
+            try { e.target.getIframe().title = 'Save the date film'; e.target.playVideo(); } catch (err) {}
+          },
+          onStateChange: function (e) {
+            if (e.data === 1) BGM.holdFor('film');                 // playing
+            else if (e.data === 2 || e.data === 0) BGM.releaseFor('film'); // paused / ended
+          }
+        }
+      });
+    });
+  }, { once: true });
 })();
 
 /* ---------- 3. Music ---------- */
@@ -277,6 +244,10 @@ var $ = function (id) { return document.getElementById(id); };
     r.range.disabled = true;
   });
 
+  // The ceremony songs and the background music never talk over each other.
+  player.addEventListener('play', function () { if (window.BGM) window.BGM.holdFor('tracks'); });
+  player.addEventListener('pause', function () { if (window.BGM) window.BGM.releaseFor('tracks'); });
+  player.addEventListener('ended', function () { if (window.BGM) window.BGM.releaseFor('tracks'); });
   document.addEventListener('visibilitychange', function () {
     if (document.hidden && !player.paused) player.pause();
   });

@@ -23,6 +23,10 @@ window.WEDDING = {
   // pasted YouTube link works here (watch?v=, youtu.be/, shorts/, embed/).
   YOUTUBE_ID: 'JW0poKrqtCA',
 
+  // Background music, playing from the moment a guest opens the invitation.
+  // Leave '' to use the film above, or paste any YouTube link or ID here.
+  MUSIC_VIDEO: '',
+
   HASHTAG: '#DisTINedtobewithJOE',
   SITE_URL: 'https://joevan2025.github.io/joevan-christine', // the live site
 
