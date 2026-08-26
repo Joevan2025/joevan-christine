@@ -13,11 +13,12 @@ window.WEDDING = {
   // while RSVP_ENDPOINT_V2 below is empty.
   RSVP_ENDPOINT: 'https://script.google.com/macros/s/AKfycbwLFHGng3NKEcJ5C7IBXltWC02_aJ_FnEopGKnEKToxnlWLRgAoZS_tffwAcUvhsJcJ4g/exec',
 
-  // The v2 backend (backend/Code.gs, deployed per backend/DEPLOY.md).
-  // Paste the new /exec URL here to switch the form to the v2 transport:
-  // readable success/failure in the browser + receipt emails to accepting
-  // guests. While this is '', the site keeps the old behaviour above.
-  RSVP_ENDPOINT_V2: 'https://script.google.com/macros/s/AKfycbxtyvdUH0iH7mEBBEkm14acLWpwqNtuZ8diMX-90aCSdQDTtMPtxOvU1SFSJPCva0in/exec',
+  // The v2 backend (backend/Code.gs). Receipt emails are sent by whichever
+  // Google account created this deployment, so this is Joevan's deployment:
+  // receipts come from j.cponce.me92@gmail.com. (Mark's earlier deployment,
+  // AKfycbxtyvd…, is retired.) A NEW deployment always means a NEW /exec URL
+  // that has to be pasted here, or nothing changes.
+  RSVP_ENDPOINT_V2: 'https://script.google.com/macros/s/AKfycbyyJ8JjfK20w0FfT6-PXmm8cAUltD8il-FMAgmqKDdGNeyRuOGMJpFoV4U7l6yb44TQ/exec',
 
   // The couple's Save-the-Date film (confirmed). A bare video ID or any
   // pasted YouTube link works here (watch?v=, youtu.be/, shorts/, embed/).
