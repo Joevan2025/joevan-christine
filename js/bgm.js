@@ -52,6 +52,7 @@
   var wantPlaying = false;   // the guest opened with music
   var guestOff = false;      // the guest switched it off (always wins over auto-resume)
   var holds = {};            // things currently playing that must not be talked over
+  var lastError = null;      // YouTube error code, if the player ever reports one
 
   function videoId() { return ytId(W.MUSIC_VIDEO || W.YOUTUBE_ID || ''); }
   function held() { return Object.keys(holds).length > 0; }
@@ -69,11 +70,22 @@
   // Hold/release can arrive in quick bursts (a song that ends at once, a fast
   // tap-tap); sending pause-then-play to YouTube milliseconds apart makes it
   // drop one. Settle for a beat and send only the final decision.
-  var applyTimer = null;
+  var applyTimer = null, retryTimer = null;
   function applyNow() {
     applyTimer = null;
+    clearTimeout(retryTimer);
     if (player && ready) {
       try { if (shouldPlay()) player.playVideo(); else player.pauseVideo(); } catch (e) {}
+      // On a cold first load YouTube occasionally ignores the first playVideo();
+      // ask once more if it is still sitting unstarted a few seconds later.
+      if (shouldPlay()) {
+        retryTimer = setTimeout(function () {
+          try {
+            var s = player.getPlayerState();
+            if (shouldPlay() && (s === -1 || s === 5)) player.playVideo();
+          } catch (e) {}
+        }, 4000);
+      }
     }
     reflect();
   }
@@ -104,7 +116,8 @@
             // loop=1 normally restarts on its own; belt and braces.
             if (e.data === 0 && shouldPlay()) { try { e.target.playVideo(); } catch (err) {} }
             reflect();
-          }
+          },
+          onError: function (e) { lastError = e.data; reflect(); }
         }
       });
     });
@@ -129,7 +142,7 @@
       var ps = null, muted = null;
       if (player && ready) { try { ps = player.getPlayerState(); muted = player.isMuted(); } catch (e) {} }
       return { player: !!player, ready: ready, wantPlaying: wantPlaying, guestOff: guestOff,
-               holds: Object.keys(holds), playerState: ps, muted: muted };
+               holds: Object.keys(holds), playerState: ps, muted: muted, lastError: lastError };
     }
   };
   toggles.forEach(function (t) { t.addEventListener('click', window.BGM.toggle); });
