@@ -1,8 +1,8 @@
 # rsvp_joe_tin — project notes for future sessions
 
 Static wedding site (Joevan & Christine, 21 Nov 2026, Bacolod). Vanilla HTML/CSS/JS, no build step.
-**LIVE at https://markashlee-de.github.io/joevan-christine/** (repo `markashlee-de/joevan-christine`,
-GitHub account `markashlee-de` — never the client account `markcallcorzo`). Every push to `main`
+**LIVE at https://joevan2025.github.io/joevan-christine/** (repo `Joevan2025/joevan-christine` — the
+groom owns it; Mark pushes as collaborator `markashlee-de`, never the client account `markcallcorzo`). Every push to `main`
 redeploys in ~1 min. Photos/audio arrive by pushing files (couple can use github.com's upload UI —
 steps in README). Design rationale: `docs/design-spec.md`. Owner's notes: `README.md`.
 Backend: **v2 LIVE since 2026-08-24** — `RSVP_ENDPOINT_V2` in `js/config.js` points at the deployed

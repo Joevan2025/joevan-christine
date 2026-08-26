@@ -1,7 +1,7 @@
 # Joevan & Christine — wedding website
 
-A single-page invitation and RSVP site. **Live at <https://markashlee-de.github.io/joevan-christine/>**
-(repo: `markashlee-de/joevan-christine`). No build step — every push to `main` redeploys the site
+A single-page invitation and RSVP site. **Live at <https://joevan2025.github.io/joevan-christine/>**
+(repo: `Joevan2025/joevan-christine`). No build step — every push to `main` redeploys the site
 within a minute or two.
 
 ## For Joevan & Christine
@@ -20,7 +20,7 @@ Everything else (dates, times, venues, contacts, hashtag, RSVP deadline) lives i
 
 ## Adding photos or songs without any tools (github.com upload)
 
-1. Open <https://github.com/markashlee-de/joevan-christine>, click the `images` folder
+1. Open <https://github.com/Joevan2025/joevan-christine>, click the `images` folder
    (or `audio` for songs).
 2. **Add file → Upload files**, drag the pictures in (named exactly as `images/README.md` lists,
    e.g. `prenup-01.jpg`, `og.jpg`), then **Commit changes**.

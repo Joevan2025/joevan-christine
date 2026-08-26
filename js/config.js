@@ -24,7 +24,7 @@ window.WEDDING = {
   YOUTUBE_ID: 'JW0poKrqtCA',
 
   HASHTAG: '#DisTINedtobewithJOE',
-  SITE_URL: 'https://markashlee-de.github.io/joevan-christine', // the live site
+  SITE_URL: 'https://joevan2025.github.io/joevan-christine', // the live site
 
   COUPLE: {
     groom: 'Joevan',
