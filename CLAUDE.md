@@ -5,10 +5,15 @@ Static wedding site (Joevan & Christine, 21 Nov 2026, Bacolod). Vanilla HTML/CSS
 groom owns it; Mark pushes as collaborator `markashlee-de`, never the client account `markcallcorzo`). Every push to `main`
 redeploys in ~1 min. Photos/audio arrive by pushing files (couple can use github.com's upload UI —
 steps in README). Design rationale: `docs/design-spec.md`. Owner's notes: `README.md`.
-Backend: **v2 LIVE since 2026-08-24** — `RSVP_ENDPOINT_V2` in `js/config.js` points at the deployed
-`backend/Code.gs`; replies land in the `RSVPs v2` tab and accepting guests get a receipt email.
+Backend: **v2 LIVE** — `RSVP_ENDPOINT_V2` in `js/config.js` points at **Joevan's** deployment of
+`backend/Code.gs` (`AKfycbyyJ8Jjf…`, switched 2026-08-26); replies land in the `RSVPs v2` tab and
+accepting guests get a receipt email **from j.cponce.me92@gmail.com**. Mark's earlier deployment
+(`AKfycbxtyvd…`) is retired — it still exists and would send mail as Mark if anything called it.
+Rule: **mail comes from whoever created the deployment, and every new deployment has a new
+`/exec` URL that must be pasted into config** (the "still my email" bug was exactly this).
 Verified from the live origin: readable `{ok:true}`, no preflight, `text/plain` POST.
-Editing `backend/Code.gs` needs a redeploy (*Manage deployments → New version*) or nothing changes.
+Editing `backend/Code.gs` needs a redeploy by Joevan (*Manage deployments → New version*) or
+nothing changes.
 Claude artifacts are retired for this project — the Pages URL is the preview.
 
 ## Invariants — do not reintroduce these bugs
