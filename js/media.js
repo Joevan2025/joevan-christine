@@ -101,7 +101,7 @@ var $ = function (id) { return document.getElementById(id); };
     if (!W.YOUTUBE_ID) return null;
     var ifr = document.createElement('iframe');
     ifr.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(ytId(W.YOUTUBE_ID)) +
-      '?autoplay=1&rel=0&modestbranding=1&playsinline=1&mute=' + (muted ? '1' : '0');
+      '?autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&mute=' + (muted ? '1' : '0');
     ifr.title = 'Save the date film';
     ifr.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
     ifr.setAttribute('allowfullscreen', '');
@@ -117,13 +117,37 @@ var $ = function (id) { return document.getElementById(id); };
   play.addEventListener('click', playWithSound);
   if (sound) sound.addEventListener('click', playWithSound);
 
+  // Browsers allow sound-on autoplay only after the visitor has interacted with
+  // the page. The film sits far down the page, so by the time a guest reaches it
+  // they have nearly always tapped something — and then it starts WITH sound.
+  var activated = false;
+  var GESTURES = ['pointerdown', 'touchend', 'keydown', 'click'];
+  function onGesture(e) {
+    // Only a real gesture grants autoplay-with-sound; a scripted click does not.
+    if (activated || (e && e.isTrusted === false)) return;
+    activated = true;
+    GESTURES.forEach(function (ev) { document.removeEventListener(ev, onGesture, true); });
+    // Already playing silently? Turn the sound on in place — no reload, no restart.
+    if (wrap.dataset.muted === '1') {
+      var f = frame.querySelector('iframe');
+      if (f && f.contentWindow) {
+        try {
+          f.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'unMute', args: [] }), '*');
+          f.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'setVolume', args: [100] }), '*');
+          wrap.dataset.muted = '';   // hides the pill; the player's own volume control remains
+        } catch (e) {}
+      }
+    }
+  }
+  GESTURES.forEach(function (ev) { document.addEventListener(ev, onGesture, true); });
+
   // Starts on its own once the film reaches the screen. Guests who asked for
   // reduced motion, or who are on Save-Data, keep the tap-to-play poster.
   var reduce = (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) ||
     document.documentElement.getAttribute('data-lite') === '1';
   if (!reduce && typeof IntersectionObserver === 'function') {
     var io = new IntersectionObserver(function (entries) {
-      if (entries[entries.length - 1].isIntersecting) { io.disconnect(); start(true); }
+      if (entries[entries.length - 1].isIntersecting) { io.disconnect(); start(!activated); }
     }, { threshold: 0.35 });
     io.observe(wrap);
   }

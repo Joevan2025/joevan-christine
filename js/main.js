@@ -13,7 +13,7 @@ var reduce = lite || matchMedia('(prefers-reduced-motion: reduce)').matches;
 var DAY = 864e5, H = 36e5, MIN = 6e4, pad = (n) => (n < 10 ? '0' : '') + n;
 var wed = Date.parse(W.WEDDING_DATE || ''), due = Date.parse(W.RSVP_DEADLINE || '');
 var cd = $('#countdown'), ctx = $('#countdown-context'), timer = null;
-var cdN = ['#cd-days', '#cd-hours', '#cd-mins'].map((i) => $(i));
+var cdN = ['#cd-days', '#cd-hours', '#cd-mins', '#cd-secs'].map((i) => $(i));
 function countdown() {
   var now = Date.now(), left = wed - now;
   if (left <= 0) {
@@ -25,6 +25,7 @@ function countdown() {
   cdN[0].textContent = Math.floor(left / DAY);
   cdN[1].textContent = pad(Math.floor(left % DAY / H));
   cdN[2].textContent = pad(Math.floor(left % H / MIN));
+  cdN[3].textContent = pad(Math.floor(left % MIN / 1000));
   if (!ctx) return;
   var t;
   if (now >= wed - 14 * H) t = 'today, 2:00 PM, Queen of Peace';
@@ -37,8 +38,16 @@ function countdown() {
   ctx.textContent = t;
 }
 if (cd && cdN.every(Boolean) && !isNaN(wed)) {
+  // Ticks every second, aligned to the clock so the digits turn together.
+  var SEC = 1000;
+  var run = () => { clearInterval(timer); countdown(); timer = setInterval(countdown, SEC); };
   countdown();
-  setTimeout(() => { countdown(); timer = setInterval(countdown, MIN); }, MIN - Date.now() % MIN);
+  setTimeout(run, SEC - Date.now() % SEC);
+  // No point counting in a tab nobody is looking at.
+  on(document, 'visibilitychange', () => {
+    if (document.hidden) clearInterval(timer);
+    else if (Date.now() < wed) run();
+  });
 }
 /* 3. Masthead */
 var head = $('#masthead');
