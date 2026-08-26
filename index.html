@@ -6,7 +6,25 @@
 <title>Joevan &amp; Christine · 21 November 2026</title>
 <meta name="description" content="Together with their families, Joevan and Christine invite you to their wedding on Saturday, 21 November 2026 in Bacolod City. Find the details, the entourage, the venues, and send your reply.">
 <meta name="theme-color" content="#FBF8F2">
-<script>document.documentElement.classList.add('js')</script>
+<script>
+document.documentElement.classList.add('js');
+/* Photos may be uploaded as .jpg, .png, .jpeg or .webp — try each in turn so
+   the file extension never decides whether a picture shows up. */
+window.imgNext = function (img) {
+  var EXT = ['jpg', 'png', 'jpeg', 'webp'];
+  var i = (+img.dataset.ext || 0) + 1;
+  if (img.dataset.base && i < EXT.length) {
+    img.dataset.ext = i;
+    img.src = img.dataset.base + '.' + EXT[i];
+    return;
+  }
+  var frame = img.closest('.frame');
+  if (frame) { frame.dataset.empty = '1'; return; }  // keep the <img>: js/media.js tracks it
+  var film = img.closest('.film');
+  if (film) film.dataset.empty = '1';
+  img.remove();
+};
+</script>
 <!-- Link previews (Messenger, Viber, WhatsApp). The og:image appears once
      the couple drops images/og.jpg (1200×630) into the repo. -->
 <meta property="og:type" content="website">
@@ -111,8 +129,8 @@
   </div>
   <div class="hero-arch" aria-hidden="true">
     <svg class="arch-art" viewBox="0 0 400 520" focusable="false"><use href="#arch-wisteria"/></svg>
-    <!-- Optional: images/hero.jpg (portrait, 1600×2000) shows faintly inside the arch when present. -->
-    <img class="hero-photo" src="images/hero.jpg" alt="" decoding="async" onerror="this.remove()">
+    <!-- Optional: images/hero.jpg|.png (portrait, 1600×2000) shows faintly inside the arch when present. -->
+    <img class="hero-photo" src="images/hero.jpg" data-base="images/hero" alt="" decoding="async" onerror="imgNext(this)">
   </div>
 </section>
 
@@ -591,30 +609,31 @@
       <p class="lede">Prenup photographs, added as they are ready.</p>
     </header>
 
-    <!-- Drop photos into images/ as prenup-01.jpg … prenup-06.jpg. Every frame is a 4:5 arch; any orientation works, portrait looks best. -->
+    <!-- Drop photos into images/ as prenup-01 … prenup-06 (.jpg, .png, .jpeg or .webp all work).
+         Every frame is a 4:5 arch; any orientation works, portrait looks best. -->
     <div class="frames" id="frames">
       <figure class="frame frame-1" data-slot="1">
-        <button type="button" class="frame-open" aria-label="Open photograph 1"><img src="images/prenup-01.jpg" alt="Joevan and Christine, photograph 1" loading="lazy" decoding="async" onerror="this.closest('.frame').dataset.empty='1'"></button>
+        <button type="button" class="frame-open" aria-label="Open photograph 1"><img src="images/prenup-01.jpg" data-base="images/prenup-01" alt="Joevan and Christine, photograph 1" loading="lazy" decoding="async" onerror="imgNext(this)"></button>
         <div class="frame-empty" aria-hidden="true"><svg class="frame-arch" focusable="false"><use href="#arch-frame"/></svg><svg class="frame-sprig" focusable="false"><use href="#sprig-eucalyptus"/></svg><span class="frame-note">photograph to follow</span></div>
       </figure>
       <figure class="frame frame-2" data-slot="2">
-        <button type="button" class="frame-open" aria-label="Open photograph 2"><img src="images/prenup-02.jpg" alt="Joevan and Christine, photograph 2" loading="lazy" decoding="async" onerror="this.closest('.frame').dataset.empty='1'"></button>
+        <button type="button" class="frame-open" aria-label="Open photograph 2"><img src="images/prenup-02.jpg" data-base="images/prenup-02" alt="Joevan and Christine, photograph 2" loading="lazy" decoding="async" onerror="imgNext(this)"></button>
         <div class="frame-empty" aria-hidden="true"><svg class="frame-arch" focusable="false"><use href="#arch-frame"/></svg><svg class="frame-sprig" focusable="false"><use href="#sprig-eucalyptus"/></svg><span class="frame-note">photograph to follow</span></div>
       </figure>
       <figure class="frame frame-3" data-slot="3">
-        <button type="button" class="frame-open" aria-label="Open photograph 3"><img src="images/prenup-03.jpg" alt="Joevan and Christine, photograph 3" loading="lazy" decoding="async" onerror="this.closest('.frame').dataset.empty='1'"></button>
+        <button type="button" class="frame-open" aria-label="Open photograph 3"><img src="images/prenup-03.jpg" data-base="images/prenup-03" alt="Joevan and Christine, photograph 3" loading="lazy" decoding="async" onerror="imgNext(this)"></button>
         <div class="frame-empty" aria-hidden="true"><svg class="frame-arch" focusable="false"><use href="#arch-frame"/></svg><svg class="frame-sprig" focusable="false"><use href="#sprig-eucalyptus"/></svg><span class="frame-note">photograph to follow</span></div>
       </figure>
       <figure class="frame frame-4" data-slot="4">
-        <button type="button" class="frame-open" aria-label="Open photograph 4"><img src="images/prenup-04.jpg" alt="Joevan and Christine, photograph 4" loading="lazy" decoding="async" onerror="this.closest('.frame').dataset.empty='1'"></button>
+        <button type="button" class="frame-open" aria-label="Open photograph 4"><img src="images/prenup-04.jpg" data-base="images/prenup-04" alt="Joevan and Christine, photograph 4" loading="lazy" decoding="async" onerror="imgNext(this)"></button>
         <div class="frame-empty" aria-hidden="true"><svg class="frame-arch" focusable="false"><use href="#arch-frame"/></svg><svg class="frame-sprig" focusable="false"><use href="#sprig-eucalyptus"/></svg><span class="frame-note">photograph to follow</span></div>
       </figure>
       <figure class="frame frame-5" data-slot="5">
-        <button type="button" class="frame-open" aria-label="Open photograph 5"><img src="images/prenup-05.jpg" alt="Joevan and Christine, photograph 5" loading="lazy" decoding="async" onerror="this.closest('.frame').dataset.empty='1'"></button>
+        <button type="button" class="frame-open" aria-label="Open photograph 5"><img src="images/prenup-05.jpg" data-base="images/prenup-05" alt="Joevan and Christine, photograph 5" loading="lazy" decoding="async" onerror="imgNext(this)"></button>
         <div class="frame-empty" aria-hidden="true"><svg class="frame-arch" focusable="false"><use href="#arch-frame"/></svg><svg class="frame-sprig" focusable="false"><use href="#sprig-eucalyptus"/></svg><span class="frame-note">photograph to follow</span></div>
       </figure>
       <figure class="frame frame-6" data-slot="6">
-        <button type="button" class="frame-open" aria-label="Open photograph 6"><img src="images/prenup-06.jpg" alt="Joevan and Christine, photograph 6" loading="lazy" decoding="async" onerror="this.closest('.frame').dataset.empty='1'"></button>
+        <button type="button" class="frame-open" aria-label="Open photograph 6"><img src="images/prenup-06.jpg" data-base="images/prenup-06" alt="Joevan and Christine, photograph 6" loading="lazy" decoding="async" onerror="imgNext(this)"></button>
         <div class="frame-empty" aria-hidden="true"><svg class="frame-arch" focusable="false"><use href="#arch-frame"/></svg><svg class="frame-sprig" focusable="false"><use href="#sprig-eucalyptus"/></svg><span class="frame-note">photograph to follow</span></div>
       </figure>
     </div>
@@ -640,8 +659,8 @@
     </header>
 
     <div class="film" id="film">
-      <!-- Optional poster: images/video-poster.jpg (1280×720). The drawn frame shows until then. -->
-      <img class="film-poster" src="images/video-poster.jpg" alt="" decoding="async" onerror="this.closest('.film').dataset.empty='1';this.remove()">
+      <!-- Optional poster: images/video-poster.jpg|.png (1280×720). The drawn frame shows until then. -->
+      <img class="film-poster" src="images/video-poster.jpg" data-base="images/video-poster" alt="" decoding="async" onerror="imgNext(this)">
       <svg class="film-bloom" aria-hidden="true" focusable="false"><use href="#bloom-hydrangea"/></svg>
       <button type="button" class="film-play" id="film-play">
         <svg class="ico" aria-hidden="true" focusable="false"><use href="#ico-play"/></svg>

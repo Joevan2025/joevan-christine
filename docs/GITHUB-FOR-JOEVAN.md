@@ -53,9 +53,10 @@ No software needed — this all happens on the GitHub website.
 
 1. Open your project and click into the **`images`** folder.
 2. Click **Add file → Upload files** and drag your pictures in.
-3. Name them exactly as that folder's `README.md` lists — `prenup-01.jpg` through `prenup-06.jpg`
-   for the gallery, and `og.jpg` for the small picture people see when the link is shared on
-   Messenger.
+3. Name them `prenup-01` through `prenup-06` for the gallery. The file type does not matter —
+   `.jpg`, `.png`, `.jpeg` and `.webp` all work — but keep the names **lowercase**. The one
+   exception is `og.jpg`, the small picture shown when the link is shared on Messenger: that one
+   must keep the `.jpg` name exactly.
 4. Scroll down and click **Commit changes**.
 5. Wait a minute, refresh the wedding site, and your photos replace the drawings.
 

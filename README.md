@@ -8,7 +8,7 @@ within a minute or two.
 
 Things to add or confirm before sharing the link:
 
-1. **Photos** — see `images/README.md` (six prenup photos, optional hero/poster, and `og.jpg` for link previews).
+1. **Photos** — see `images/README.md`. Name them `prenup-01` … `prenup-06`; `.jpg`, `.png`, `.jpeg` and `.webp` all work (lowercase). Only `og.jpg`, the Messenger preview picture, must keep the `.jpg` name.
 2. **Songs** — see `audio/README.md`, then type titles and artists in `js/config.js`.
 3. **Save-the-date film** — `YOUTUBE_ID` in `js/config.js` holds your film. If it ever changes, paste the new YouTube link in any form (the full `watch?v=` link, a `youtu.be` share link, or just the ID) — the site extracts the right ID itself.
 4. **Parents of the groom** — the Details section says *Mr. Jose Tagolimot & Mrs. Evalyn Ponce Tagolimot*; the Entourage section says *Mr. Erik Rikkerink & Mrs. Grace Rikkerink*. One is a leftover. Search `index.html` for `TODO (couple)` and fix both places.
