@@ -61,7 +61,7 @@ Mandated pastels unchanged as `--purple #9B72C8`, `--purple-mid #C5A8E0`, `--lav
 | Label / button | Jost 500, 0.06em, sentence case | `0.875rem` (inputs 16px min) |
 | Caption | Cormorant ital 400, `--ink-soft` | `0.9375rem` |
 
-Why it is theirs: the hashtag pun is set from Cormorant's own upright 600 vs italic 300, so the type choice is literally what makes "#DisTINedtobewithJOE" legible as TIN & JOE; and Cormorant italic + Jost caps is the hierarchy of a Filipino printed invitation, which the ninongs will recognise.
+Why it is theirs: the hashtag pun is set from Cormorant's own upright 600 vs italic 300, so the type choice is literally what makes "#DesTINedtobewithJOE" legible as TIN & JOE; and Cormorant italic + Jost caps is the hierarchy of a Filipino printed invitation, which the ninongs will recognise.
 
 ### Spacing, radius, shadow, border
 - 8px base. Section rhythm `clamp(4rem, 10vw, 8rem)`. Container 68rem; prose 40rem.
@@ -307,7 +307,7 @@ Native `<details>/<summary>`, 52px summaries, lavender sprig marker rotates 90°
 |      "So they are no longer two, but one flesh. Therefore what God has joined together,
 |       let no one separate."   Matthew 19:6
 |      Joevan & Christine · 21 November 2026 · Bacolod · Talisay · Silay
-|      #DisTINedtobewithJOE · Joevan +63 951 751 7046 · Christine +63 943 087 7271
+|      #DesTINedtobewithJOE · Joevan +63 951 751 7046 · Christine +63 943 087 7271
 ```
 Paper ground, verse Cormorant ital 19px max 34ch. Garden's textPath wreath rejected (bespoke SVG, no gain on mobile). Padding-bottom = 64px + safe-area.
 

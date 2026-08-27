@@ -39,7 +39,7 @@ var MAX_GUESTS = 4;
 var WEDDING_DATE_TEXT = 'Saturday, 21 November 2026';
 var WEDDING_CITY = 'Bacolod';
 var RSVP_DEADLINE_TEXT = '15 October'; // 2026 — the wedding year is implied
-var HASHTAG = '#DisTINedtobewithJOE';
+var HASHTAG = '#DesTINedtobewithJOE';
 var VENUES = [
   { time: '2:00 PM',  label: 'Ceremony',    name: 'Queen of Peace Parish Redemptorist Church', city: 'Bacolod City' },
   { time: '6:00 PM',  label: 'Reception',   name: "Nature's Village Resort, Alfredo Hall",     city: 'Talisay City' },

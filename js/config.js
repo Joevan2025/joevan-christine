@@ -28,7 +28,7 @@ window.WEDDING = {
   // Leave '' to use the film above, or paste any YouTube link or ID here.
   MUSIC_VIDEO: '',
 
-  HASHTAG: '#DisTINedtobewithJOE',
+  HASHTAG: '#DesTINedtobewithJOE',
   SITE_URL: 'https://joevan2025.github.io/joevan-christine', // the live site
 
   COUPLE: {

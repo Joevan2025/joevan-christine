@@ -120,7 +120,7 @@ else {
   grow.forEach((el) => { ro.observe(el); });
 }
 /* 8. Hashtag */
-var TAG = W.HASHTAG || '#DisTINedtobewithJOE', HOLD = 'Press and hold to copy';
+var TAG = W.HASHTAG || '#DesTINedtobewithJOE', HOLD = 'Press and hold to copy';
 var disp = $('#hashtag-display'), ftag = $('#footer-hashtag'), hstat = $('#hashtag-status'), timers = {};
 if (ftag) ftag.textContent = TAG;
 function status(el, msg) {
