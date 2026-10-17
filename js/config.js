@@ -7,7 +7,7 @@ window.WEDDING = {
   // Ceremony start, Philippine time (UTC+8)
   WEDDING_DATE: '2026-11-21T14:00:00+08:00',
   // Last day guests can reply (end of day, Philippine time)
-  RSVP_DEADLINE: '2026-10-15T23:59:59+08:00',
+  RSVP_DEADLINE: '2026-10-30T23:59:59+08:00',
 
   // Legacy Google Apps Script web app (the original endpoint). Used only
   // while RSVP_ENDPOINT_V2 below is empty.
@@ -22,7 +22,7 @@ window.WEDDING = {
 
   // The couple's Save-the-Date film (confirmed). A bare video ID or any
   // pasted YouTube link works here (watch?v=, youtu.be/, shorts/, embed/).
-  YOUTUBE_ID: 'JW0poKrqtCA',
+  YOUTUBE_ID: 'https://www.youtube.com/watch?v=lnc1vgkVTJ8&list=RDlnc1vgkVTJ8&start_radio=1',
 
   // Background music, playing from the moment a guest opens the invitation.
   // Leave '' to use the film above, or paste any YouTube link or ID here.
