@@ -111,5 +111,5 @@ window.WEDDING = {
   // Gallery: images/prenup-01.jpg … prenup-06.jpg. Slots 1, 3, 6 are tall
   // (portrait), 2, 4, 5 are wide (landscape). Lower this number to show
   // fewer slots.
-  GALLERY_COUNT: 6
+  GALLERY_COUNT: 9
 };
